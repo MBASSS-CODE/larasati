@@ -10,7 +10,7 @@ class PostController extends Controller
     public function index ()
     {
         return view('posts',[
-            "title" => "Blog",
+            "title" => "All Post",
             "posts" => Post::with(['author', 'category'])->latest()->get() //eager loading pada controller
         ]);
     }
