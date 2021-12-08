@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Models\Category;
 use App\Models\Posts;
@@ -32,22 +33,10 @@ Route::get('/about', function () {
 });
 
 Route::get('/posts', [PostController::class, 'index']);
-
 Route::get('/post/{post:slug}', [PostController::class, 'show']);
 
-Route::get('/categories', function () {
-    return view('categories',[
-        'title' => 'Post Categories',
-        'categories' => Category::all()
-    ]);
-}); 
-
-Route::get('/categories/{category:slug}', function (Category $category) {
-    return view('posts', [
-        'title' => "Post in category : $category->name",
-        'posts' => $category->posts->load('category', 'author') //lazy eager load
-    ]);
-});
+Route::get('/categories', [CategoryController::class, 'index']); 
+Route::get('/categories/{category:slug}', [CategoryController::class , 'categories']);
 
 Route::get('/author/{author:username}', function (User $author) {
     return view('posts', [
