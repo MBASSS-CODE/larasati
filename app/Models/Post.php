@@ -13,6 +13,7 @@ class Post extends Model
     // fillable = boleh di isi manual
 
     protected $fillable = ['category_id', 'title','slug','body','published_at'];
+    // protected $with = ['author', 'category']; // eager loading pada model
 
     public function category()
     {
