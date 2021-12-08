@@ -11,6 +11,7 @@ class PostController extends Controller
     {
         return view('posts',[
             "title" => "All Post",
+            "active" => "posts",
             "posts" => Post::with(['author', 'category'])->latest()->get() //eager loading pada controller
         ]);
     }
@@ -19,6 +20,7 @@ class PostController extends Controller
     {
         return view('post',[
             "title" => "Single Post",
+            "active" => "posts",
             "post" => $post
         ]);
     }
