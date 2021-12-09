@@ -43,6 +43,7 @@ Route::get('/categories/{category:slug}', [CategoryController::class , 'categori
 Route::get('/author/{author:username}', function (User $author) {
     return view('posts', [
         'title' => "Post By $author->name" ,
+        'active' => "posts" ,
         'posts' => $author->posts->load('category', 'author') //lazy eager load
     ]);
 });

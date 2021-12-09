@@ -23,7 +23,7 @@
 	<div class="row">
 		@foreach ($posts->skip(1) as $post)
 			<div class="col-md-3 mb-3">
-				<div class="card">
+				<div class="card border-0">
 					<div class="position-absolute px-3 py-2" style="background-color: rgba(0,0, 0, 0.7)">
 						<a class="text-decoration-none text-white" href="/categories/{{ $post->category->slug }}">
 							{{ $post->category->name }}
