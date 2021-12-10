@@ -39,10 +39,10 @@ Route::get('/post/{post:slug}', [PostController::class, 'show']);
 
 Route::get('/categories', [CategoryController::class, 'index']); 
 
-Route::get('/author/{author:username}', function (User $author) {
-    return view('posts', [
-        'title' => "Post By $author->name" ,
-        'active' => "posts" ,
-        'posts' => $author->posts->load('category', 'author') //lazy eager load
-    ]);
-});
+// Route::get('/author/{author:username}', function (User $author) {
+//     return view('posts', [
+//         'title' => "Post By $author->name" ,
+//         'active' => "posts" ,
+//         'posts' => $author->posts->load('category', 'author') //lazy eager load
+//     ]);
+// });

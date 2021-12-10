@@ -9,6 +9,9 @@
 				@if (request('category'))
 						<input type="hidden" name="category" value="{{ request('category') }}">
 				@endif
+				@if (request('author'))
+						<input type="hidden" name="author" value="{{ request('author') }}">
+				@endif
 				<div class="input-group mb-3">
 					<input type="text" class="form-control" placeholder="Search.." name="search" value="{{ request('search') }}">
 					<button class="btn btn-danger" type="submit">Search</button>
@@ -23,7 +26,7 @@
 			<h5 class="card-title">{{ $posts[0]->title }}</h5>
 			<p>
 				<small>
-					By <a class="text-decoration-none" href="/author/{{ $posts[0]->author->username }}">{{ $posts[0]->author->name }} </a> in 
+					By <a class="text-decoration-none" href="/posts?author={{ $posts[0]->author->username }}">{{ $posts[0]->author->name }} </a> in 
 					<a class="text-decoration-none" href="/posts?category={{ $posts[0]->category->slug }}">{{ $posts[0]->category->name }}</a>
 					<span class="text-muted">{{ $posts[0]->created_at->diffForHumans() }}</span>
 				</small>

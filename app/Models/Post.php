@@ -42,6 +42,13 @@ class Post extends Model
 
         // kedua 'when' di atas akan dijalankanb bersama jika user mengguakan pencarian merujuk pada suatu kategori
         
+        // menampilkan post by author ketika parameter berisi author
+        // menggunakan arrow function agar lebih simpel 
+        $query->when($filters['author'] ?? false, fn ($query, $author) => 
+                $query->whereHas('author', fn($query) => 
+                $query->where('username', $author)
+            )
+        );
     }
 
     
