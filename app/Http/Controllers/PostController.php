@@ -14,7 +14,10 @@ class PostController extends Controller
         return view('posts',[
             "title" => "All Post",
             "active" => "posts",
-            "posts" => Post::with('category', 'author')->filter(request(['search']))->latest()->get() //eager loading pada controller
+            //eager loading pada controller
+            //Bila request kosong akan menampilkan posts biasa
+            // bila terdapat request maka menampilkan post berdasarkan kata kunci atau category atau bahkan keduanya 
+            "posts" => Post::with('category', 'author')->filter(request(['search', 'category']))->latest()->get()
         ]);
     }
 

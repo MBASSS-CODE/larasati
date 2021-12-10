@@ -23,13 +23,25 @@ class Post extends Model
         //                  ->orWhere('body', 'like', '%' . $filters['search'] . '%');
         // }  
 
-        // menggunakan when (di jalankan jika first argumen bernialai true)
+        // menggunakan when (di jalankan jika first argumen bernialai true, dalam hal ini berati kata kunci)
         // menggunakan null coalising yaitu fitur baru penganti ternary operator dan bisa juga digunakan untuk isset
-        
         $query->when($filters['search'] ?? false, function ($query, $search) {
-            return $query->where('title', 'like', '%'. $search. '%')
-                         ->orWhere('body', 'like', '%' . $search. '%');
+            return  $query->where(function ($query) use ($search) {
+                    $query->where('title', 'like', '%'. $search. '%')
+                          ->orWhere('body', 'like', '%' . $search. '%');
+            });
         });
+
+        // menggunakan when (di jalankan jika first argumen bernialai true, dalam hal ini berati kategori)
+        // search menggunakan kata kunci pada suatu kategori
+        $query->when($filters['category'] ?? false, function ($query, $category) {
+            return  $query->whereHas('category', function ($query) use ($category) {
+                    $query->where('slug', $category);
+            });
+        });
+
+        // kedua 'when' di atas akan dijalankanb bersama jika user mengguakan pencarian merujuk pada suatu kategori
+        
     }
 
     

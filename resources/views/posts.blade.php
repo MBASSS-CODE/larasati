@@ -6,6 +6,9 @@
 	<div class="row justify-content-center mb-3">
 		<div class="col-md-6">
 			<form action="/posts" method="get">
+				@if (request('category'))
+						<input type="hidden" name="category" value="{{ request('category') }}">
+				@endif
 				<div class="input-group mb-3">
 					<input type="text" class="form-control" placeholder="Search.." name="search" value="{{ request('search') }}">
 					<button class="btn btn-danger" type="submit">Search</button>
@@ -21,7 +24,7 @@
 			<p>
 				<small>
 					By <a class="text-decoration-none" href="/author/{{ $posts[0]->author->username }}">{{ $posts[0]->author->name }} </a> in 
-					<a class="text-decoration-none" href="/categories/{{ $posts[0]->category->slug }}">{{ $posts[0]->category->name }}</a>
+					<a class="text-decoration-none" href="/posts?category={{ $posts[0]->category->slug }}">{{ $posts[0]->category->name }}</a>
 					<span class="text-muted">{{ $posts[0]->created_at->diffForHumans() }}</span>
 				</small>
 			</p>
@@ -36,7 +39,7 @@
 			<div class="col-md-3 mb-3">
 				<div class="card border-0">
 					<div class="position-absolute px-3 py-2" style="background-color: rgba(0,0, 0, 0.7)">
-						<a class="text-decoration-none text-white" href="/categories/{{ $post->category->slug }}">
+						<a class="text-decoration-none text-white" href="/posts?category={{ $post->category->slug }}">
 							{{ $post->category->name }}
 						</a>
 					</div>
@@ -45,7 +48,7 @@
 						<h5 class="card-title"><a href="/post/{{ $post->slug }}" class="text-decoration-none">
 							{{ $post->title }}
 						</a></h5>
-						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+						<p class="card-text">{{ $post->excerpt }}</p>
 						<a href="/post/{{ $post->slug }}" class="btn btn-primary">Read More..</a>
 					</div>
 				</div>
