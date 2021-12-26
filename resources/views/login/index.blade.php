@@ -10,16 +10,33 @@
       </div>
     @endif
 
-    <form>
-      <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+    @if (session()->has('logginError'))
+      <div class="alert alert-danger aler-dissmissable fade show" role="alert">
+        {{ session('logginError') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    @endif
 
+    <form action="/login" method="post">
+      <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+      @csrf
       <div class="form-floating">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" id="floatingInput" placeholder="nmbasame@example.com">
         <label for="floatingInput">Email address</label>
+        @error('email')
+            <div class="is-invalid">
+              {{ $message }}
+            </div>
+        @enderror
       </div>
       <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" id="floatingPassword" placeholder="Password">
         <label for="floatingPassword">Password</label>
+        @error('password')
+            <div class="is-invalid">
+              {{ $message }}
+            </div>
+        @enderror
       </div>
       <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
     </form>
