@@ -31,4 +31,28 @@ class LoginController extends Controller
 
       return back()->with($request->session()->flash('logginError', 'Login Failed'));
     }
+
+    // Menggunakan parameter
+    // public function logout(Request $request)
+    // {
+    //     Auth::logout();
+
+    //     $request->session()->invalidate();
+
+    //     $request->session()->regenerateToken();
+
+    //     return redirect('/');
+    // }
+
+    // tidakl menggunakan parameter
+    public function logout()
+    {
+        Auth::logout();
+
+        request()->session()->invalidate();
+
+        request()->session()->regenerateToken();
+
+        return redirect('/');
+    }
 }
