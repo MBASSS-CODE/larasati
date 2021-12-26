@@ -47,7 +47,7 @@ Route::get('/categories', [CategoryController::class, 'index']);
 //     ]);
 // });
 
-Route::get('/login', [LoginController::class, 'index'])->middleware('guest');
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest'); // Name merupakan nama dari routes
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
