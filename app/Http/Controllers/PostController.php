@@ -30,7 +30,9 @@ class PostController extends Controller
             //eager loading pada controller
             //Bila request kosong akan menampilkan posts biasa
             // bila terdapat request maka menampilkan post berdasarkan kata kunci atau category atau bahkan keduanya 
-            "posts" => Post::with('category', 'author')->filter(request(['search', 'category', 'author']))->latest()->get()
+            "posts" => Post::with('category', 'author')->filter(request(['search', 'category', 'author']))->latest()->paginate(3)->withQueryString()
+            // get diganti paginate untuk membuat pagination
+            // withQueryString untuk halaman category atau author agar next tetap pada parameter tidak kembali ke post
         ]);
     }
 
