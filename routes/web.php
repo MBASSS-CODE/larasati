@@ -1,10 +1,9 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostController;
-use App\Models\Category;
-use App\Models\Posts;
-use App\Models\User;
+use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,3 +45,7 @@ Route::get('/categories', [CategoryController::class, 'index']);
 //         'posts' => $author->posts->load('category', 'author') //lazy eager load
 //     ]);
 // });
+
+Route::get('/login', [LoginController::class, 'index']);
+
+Route::get('/register', [RegisterController::class, 'index']);
