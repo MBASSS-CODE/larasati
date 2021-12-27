@@ -55,8 +55,5 @@ Route::get('/register', [RegisterController::class, 'create'])->middleware('gues
 Route::post('/register', [RegisterController::class, 'store']);
 
 Route::get('/dashboard', function(){
-    return view('dashboard.index',[
-        'active' => 'dashboard',
-        'title' => 'Admin Dashboard'
-    ]);
+    return view('dashboard.index');
 })->middleware('auth');
