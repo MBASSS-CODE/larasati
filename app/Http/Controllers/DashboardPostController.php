@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class DashboardPostController extends Controller
@@ -13,7 +14,9 @@ class DashboardPostController extends Controller
      */
     public function index()
     {
-        return "Dashboard Posts";
+        return view('dashboard.posts.index', [
+            'posts' => Post::where('user_id', auth()->user()->id)->get()
+        ]);
     }
 
     /**
