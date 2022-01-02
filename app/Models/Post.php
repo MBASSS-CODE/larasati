@@ -14,7 +14,7 @@ class Post extends Model
     // guard = tidak boleh di isi manual
     // fillable = boleh di isi manual
 
-    protected $fillable = ['category_id', 'user_id', 'title', 'slug', 'excerpt', 'body', 'published_at'];
+    protected $fillable = ['category_id', 'user_id', 'title', 'slug', 'excerpt', 'body', 'image', 'published_at'];
     // protected $with = ['author', 'category']; // eager loading pada model
 
     public function scopeFilter ($query, array $filters)

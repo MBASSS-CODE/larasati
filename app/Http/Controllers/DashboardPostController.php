@@ -46,8 +46,15 @@ class DashboardPostController extends Controller
             'title'         => 'required|max:25',
             'slug'          => 'required|unique:posts',
             'category_id'   => 'required',
+            'image'         => 'image|file|max:1024', //untuk ukuran kilobyte gunaka pipe file 
             'body'          => 'required'
         ]);
+
+        // karena image nullabel maka dibuat kondisi berikut
+        // jika file image ada di request maka dimasukkan ke aaray validatedData. Jika tidak biarkan null
+        if($request->file('image')) {
+            $validatedData['image'] = $request->file('image')->store('post-images');
+        }
 
         $validatedData['user_id'] = auth()->user()->id;
         // Str::limit merupakan fungsi dari larave digunakan untuk memotong string
@@ -66,10 +73,10 @@ class DashboardPostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Post $post)
-{
-    return view('dashboard.posts.show', [
-            'post' => $post
-        ]);
+    {
+        return view('dashboard.posts.show', [
+                'post' => $post
+            ]);
     }
 
     /**

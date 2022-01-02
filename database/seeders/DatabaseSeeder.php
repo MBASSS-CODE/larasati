@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,6 +15,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        User::create([
+            'name'      => 'Indra Kurniawan',
+            'username'  => 'mbasss',
+            'email'     => 'mbassscode',
+            'password'  => bcrypt('123123')
+        ]);
+
         \App\Models\User::factory(3)->create();
 
         Category::create([
