@@ -78,9 +78,12 @@ class DashboardPostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view('dashboard/posts/edit', [
+            'post' => $post, 
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -90,9 +93,32 @@ class DashboardPostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        // akan terjadi eeror ketika update dengan slug yang sama
+        // maka mengguanakan trik dengan memasukkan semua parameter vaidasi ke rule
+        // lakukan pengecekan slug yang lama dengan yang baru
+        // seltelah itu lakukan validasi pada variabel rules
+
+        $rules = [
+            'title'         => 'required|max:25',
+            'category_id'   => 'required',
+            'body'          => 'required'
+        ];
+
+        if($request->slug != $post->slug) {
+            $rules['slug'] = 'required|unique:posts';
+        }
+
+        $validatedData = $request->validate($rules);
+
+        $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 200);
+
+        Post::where('id', $post->id)
+            ->update($validatedData);
+
+        return redirect('/dashboard/posts')->with('success', 'Post has been Updated !');
     }
 
     /**

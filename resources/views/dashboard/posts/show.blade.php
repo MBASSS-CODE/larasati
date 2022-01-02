@@ -4,7 +4,7 @@
     <h1>{{ $post->title }}</h1>
     <p>
       <a href="/dashboard/posts" class="badge bg-primary"><span data-feather="arrow-left"></span> back to Posts</a>
-      <a href="" class="badge bg-warning"><span data-feather="edit"> Edit</span></a>
+      <a href="/dashboard/posts/{{ $post->slug }}/edit" class="badge bg-warning"><span data-feather="edit"> Edit</span></a>
       <form action="/dashboard/posts/{{ $post->slug }}" method="post" class="d-inline">
         @method('delete')
         @csrf
