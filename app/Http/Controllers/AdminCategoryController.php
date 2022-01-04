@@ -14,14 +14,14 @@ class AdminCategoryController extends Controller
      */
     public function index()
     {
-        // menggunakan guest (apakah user merupakan guest / bukan admin)
+        // manual autorization menggunakan guest (apakah user merupakan guest / bukan admin)
         // if(auth()->guest() || auth()->user()->username !== "mbasss"){
         //     abort(403);
         // }
-        // menggunakan check (apakah user telah lagin)
-        if( !auth()->guest() || auth()->user()->username !== "mbasss"){
-            abort(403);
-        }
+        // manual autorization menggunakan check (apakah user telah lagin)
+        // if( !auth()->guest() || auth()->user()->username !== "mbasss"){
+        //     abort(403);
+        // }
 
         return view('dashboard.category.index', [
             'categories' => Category::all()
